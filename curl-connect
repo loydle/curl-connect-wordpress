@@ -16,7 +16,7 @@ echo
 # Output infos
 echo ==============================================================================
 echo URL: $URL
-echo Dictionnary: $DICTIONARY
+echo Dictionary: $DICTIONARY
 echo ==============================================================================
 echo
 
