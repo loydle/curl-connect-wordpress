@@ -26,9 +26,9 @@ echo
 
 # define when to stop
 function get_redirection() {
-while read data || [ "$a" != "200"  ]; do
-			a=$(grep HTTP | cut -d H -f 2 | grep '[0-9]\{3\}' | cut -d " " -f 2)
-   			for data in $a; 
+while read data || [ "$res_status_code" != "200"  ]; do
+			res_status_code=$(grep HTTP | cut -d H -f 2 | grep '[0-9]\{3\}' | cut -d " " -f 2)
+   			for data in $res_status_code; 
 			do 
 				echo -ne "     "\\r
 				if [[ "$data" == "302"  ]];
