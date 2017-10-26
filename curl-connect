@@ -26,14 +26,14 @@ echo
 
 # define when to stop
 function get_redirection() {
-while read output; do
+while read data || [ "$a" != "200"  ]; do
 			a=$(grep HTTP | cut -d H -f 2 | grep '[0-9]\{3\}' | cut -d " " -f 2)
    			for data in $a; 
 			do 
 				echo -ne "     "\\r
 				if [[ "$data" == "302"  ]];
 				then
-					echo -e \\n"Redirection found!"
+					echo -e \\n"Redirection found!"\\n
 				else 
 					echo -ne "         "\\r
 				fi				
