@@ -13,16 +13,18 @@ USER_NAME='root'
 
 echo
 echo
+# Output infos
+echo ==============================================================================
+echo URL: $URL
+echo Dictionnary: $DICTIONARY
+echo ==============================================================================
+echo
 
 # Write the received protocol headers to the specified file.
 # Redirect html output to null l
-echo Recieving headers.. 
+echo -n "Get cookie.. " 
 curl -s --cookie-jar cookie-info.txt $URL > /dev/null
-
-# Output infos
-echo URL: $URL
-echo Dictionnary: $DICTIONARY
-echo
+echo -ne " OK"\\n
 echo User: $USER_NAME
 # define when to stop
 function get_redirection() {
