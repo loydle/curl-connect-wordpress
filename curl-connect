@@ -23,7 +23,7 @@ curl -s --cookie-jar cookie-info.txt $URL > /dev/null
 echo URL: $URL
 echo Dictionnary: $DICTIONARY
 echo
-
+echo User: $USER_NAME
 # define when to stop
 function get_redirection() {
 while read data || [ "$res_status_code" != "200"  ]; do
