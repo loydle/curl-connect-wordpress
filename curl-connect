@@ -1,6 +1,7 @@
 #!/bin/bash
-# com
+
 # USAGE: curl-connect [path/to/dictionary.txt]
+
 
 
 # global variables
